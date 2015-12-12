@@ -18,3 +18,9 @@ class Product(models.Model):
     class Meta:
         verbose_name = '产品'
         verbose_name_plural = '产品'
+
+
+class ProductBasePhoto(models.Model):
+    product = models.ForeignKey(Product)
+    photo_name = models.CharField(max_length=20, verbose_name='图片描述')
+    photo_data = models.ImageField(upload_to='base_photo')

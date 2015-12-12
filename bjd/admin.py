@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product
+from .models import Product, ProductBasePhoto
 
 # Register your models here.
 
@@ -10,3 +10,4 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ['product_number', 'product_specification']
 
 admin.site.register(Product, ProductAdmin)
+admin.site.register(ProductBasePhoto)
