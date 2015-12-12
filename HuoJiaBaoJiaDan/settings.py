@@ -15,8 +15,10 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-MEDIA_ROOT = 'E:\MyProjects\PycharmProjects\HuoJiaBaoJiaDan\media'
-MEDIA_URL = 'media/'
+MEDIA_ROOT = '/media/'
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = '/static/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -27,7 +29,7 @@ SECRET_KEY = 'c$78%92n+r11%!e$l)^_@q0q0c8k$3i@xc03fb4y9*a1fe469@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
