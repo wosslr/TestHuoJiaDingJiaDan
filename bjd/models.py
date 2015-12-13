@@ -22,5 +22,25 @@ class Product(models.Model):
 
 class ProductBasePhoto(models.Model):
     product = models.ForeignKey(Product)
-    photo_name = models.CharField(max_length=20, verbose_name='图片描述')
-    photo_data = models.ImageField(upload_to='base_photo')
+    photo_name = models.CharField(max_length=50, verbose_name='图片描述')
+    photo_data = models.ImageField(upload_to='base_photo', verbose_name='底图')
+
+    def __str__(self):
+        return self.photo_name
+
+    class Meta:
+        verbose_name_plural = verbose_name = '产品底图'
+
+
+class ProductStyle(models.Model):
+    product = models.ForeignKey(Product)
+    product_base_photo = models.ForeignKey(ProductBasePhoto)
+    style_part = models.CharField(max_length=50, verbose_name='变色部分')
+    style_photo_data = models.ImageField(upload_to='style_photo', verbose_name='样式图片')
+
+    def __str__(self):
+        return self.product_base_photo.photo_name + ' ' + self.style_part
+
+    class Meta:
+        verbose_name_plural = verbose_name = '产品样式图片'
+
