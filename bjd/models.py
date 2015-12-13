@@ -34,7 +34,7 @@ class ProductBasePhoto(models.Model):
 
 class ProductStyle(models.Model):
     product = models.ForeignKey(Product)
-    product_base_photo = models.ForeignKey(ProductBasePhoto)
+    product_base_photo = models.ForeignKey(ProductBasePhoto, verbose_name='产品底图')
     style_part = models.CharField(max_length=50, verbose_name='变色部分')
     style_photo_data = models.ImageField(upload_to='style_photo', verbose_name='样式图片')
 
@@ -43,4 +43,10 @@ class ProductStyle(models.Model):
 
     class Meta:
         verbose_name_plural = verbose_name = '产品样式图片'
+
+
+class ProductPresetStyle(models.Model):
+    product = models.ForeignKey(Product)
+
+
 
