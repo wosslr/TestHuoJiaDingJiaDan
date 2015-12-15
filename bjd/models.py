@@ -34,19 +34,33 @@ class ProductBasePhoto(models.Model):
 
 class ProductStyle(models.Model):
     product = models.ForeignKey(Product)
-    product_base_photo = models.ForeignKey(ProductBasePhoto, verbose_name='产品底图')
-    style_part = models.CharField(max_length=50, verbose_name='变色部分')
-    style_photo_data = models.ImageField(upload_to='style_photo', verbose_name='样式图片')
+    # product_base_photo = models.ForeignKey(ProductBasePhoto, verbose_name='产品底图')
+    style_part_name = models.CharField(max_length=50, verbose_name='变色部分')
+    style_name = models.CharField(max_length=50, verbose_name='样式颜色')
+    style_color_code = models.CharField(max_length=100, verbose_name='颜色代码')
+
 
     def __str__(self):
-        return self.product_base_photo.photo_name + ' ' + self.style_part
+        return self.style_name
 
     class Meta:
         verbose_name_plural = verbose_name = '产品样式图片'
 
 
+class ProductStyleItem(models.Model):
+    product_style = models.ForeignKey(ProductStyle)
+    # base_photo_name = models.CharField(max_length=50, verbose_name='图片描述')
+    base_photo = models.ForeignKey(ProductBasePhoto, limit_choices_to=Q())
+    style_photo_data = models.ImageField(upload_to='style_photo', verbose_name='样式图片')
+
+    def get_product_id(self):
+        self.objects.extra()
+
+
 class ProductPresetStyle(models.Model):
     product = models.ForeignKey(Product)
+    product_style = models.ManyToManyField(ProductStyle)
+    product_preset_style_name = models.CharField(max_length=100, verbose_name='预设样式名称')
 
 
 
