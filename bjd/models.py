@@ -50,7 +50,7 @@ class ProductStyle(models.Model):
 class ProductStyleItem(models.Model):
     product_style = models.ForeignKey(ProductStyle)
     # base_photo_name = models.CharField(max_length=50, verbose_name='图片描述')
-    base_photo = models.ForeignKey(ProductBasePhoto, limit_choices_to=Q())
+    base_photo = models.ForeignKey(ProductBasePhoto)
     style_photo_data = models.ImageField(upload_to='style_photo', verbose_name='样式图片')
 
     def get_product_id(self):

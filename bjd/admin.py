@@ -18,13 +18,19 @@ class ProductStyleInline(admin.TabularInline):
 class ProductStyleItemInline(admin.TabularInline):
     model = ProductStyleItem
     extra = 0
-    template = 'custom_admin/edit_inline/tabular.html'
-    # def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
-    #     print(request.resolver_match.args)
-    #     print(db_field.name)
-    #     if db_field.name == 'base_photo':
-    #         kwargs['queryset'] = ProductBasePhoto.objects.filter(product_id=request.resolver_match.args[0])
-    #     return super(ProductStyleItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
+    # template = 'custom_admin/edit_inline/tabular.html'
+
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
+        if db_field.name == 'base_photo':
+            product_style_id = request.path.split('/')[-2]
+            try:
+                product_style = ProductStyle.objects.filter(id=product_style_id)[0]
+                kwargs['queryset'] = ProductBasePhoto.objects.filter(product_id=product_style.product.id)
+            except Exception as e:
+                print(e)
+                pass
+
+        return super(ProductStyleItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class ProductPresetStyleInline(admin.TabularInline):
@@ -33,7 +39,7 @@ class ProductPresetStyleInline(admin.TabularInline):
 
 
 class ProductStyleAdmin(admin.ModelAdmin):
-    list_display = ['product', 'style_name']
+    list_display = ['product', 'style_name', 'style_part_name']
     list_display_links = ['style_name']
     inlines = [ProductStyleItemInline]
 
