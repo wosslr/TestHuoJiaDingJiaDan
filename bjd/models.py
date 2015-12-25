@@ -83,7 +83,7 @@ class QuotationItem(models.Model):
     product = models.ForeignKey(Product)
     quantity = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     short_text = models.TextField(max_length=500, blank=True, verbose_name='备注')
-    product_style = models.ManyToManyField(ProductStyle)
+    quotation_item_photo = models.ImageField(upload_to='quotation_item', verbose_name='产品样图')
 
     def get_product_number(self):
         return self.product.product_number
